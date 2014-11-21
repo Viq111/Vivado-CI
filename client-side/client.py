@@ -36,7 +36,7 @@ if __name__ == "__main__":
     if len(sys.argv) < 6:
         print "[ERROR] Not enough args"
         sys.exit(1)
-   if "--before_install" in sys.argv:
+    if "--before_install" in sys.argv:
         # Currently we do nothing on before_install
         sys.exit(0)
     if "--install" in sys.argv:
