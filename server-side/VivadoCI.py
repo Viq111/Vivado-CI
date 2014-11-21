@@ -52,21 +52,6 @@ def execute(args_list, stdout_queue):
                     self.queue.put(data)
                 except IOError:
                     time.sleep(0.05)
-            # At the end, flush everything
-            still_data = True
-            while still_data:
-                try:
-                    data = self.prog.stdout.readline()
-                    self.queue.put(data)
-                except IOError:
-                    still_data = False
-            still_data = True
-            while still_data:
-                try:
-                    data = self.prog.stderr.readline()
-                    self.queue.put(data)
-                except IOError:
-                    still_data = False
         def stop(self):
             self.running = False
     # Let's create the program
@@ -77,6 +62,7 @@ def execute(args_list, stdout_queue):
     thread = Watcher(prog, stdout_queue)
     thread.start()
     prog.wait()
+    time.sleep(1) # Wait for the program to flush itself
     thread.stop()
     thread.join()
     return prog.returncode
