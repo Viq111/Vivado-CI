@@ -36,11 +36,11 @@ if __name__ == "__main__":
     if len(sys.argv) < 6:
         print "[ERROR] Not enough args"
         sys.exit(1)
-        #{"repo" : "https://github.com/Viq111/vhdl-test.git", "commit" : "9fb130e2eb9230661622b933df1a0dbecd89885f", "xpr" : "*.xpr"}
-        #{"repo" : "git://github.com/Viq111/bluemars.git", "commit" : "baeff6820c0d54ecc5e1b7b775d36b740514f2e6", "xpr" : "*.xpr"}
-        #sys.argv = ["python", "vivado-ci.viq.ovh", "4545", "git://github.com/Viq111/bluemars.git", "baeff6820c0d54ecc5e1b7b775d36b740514f2e6", "*.xpr"]
-    if "--before_install" in sys.argv:
+   if "--before_install" in sys.argv:
         # Currently we do nothing on before_install
+        sys.exit(0)
+    if "--install" in sys.argv:
+        # Currently we do nothing on install
         sys.exit(0)
     server = sys.argv[1]
     port = sys.argv[2]
@@ -49,6 +49,7 @@ if __name__ == "__main__":
     xpr = sys.argv[5]
     j = json.dumps({"repo" : repo, "commit" : commit, "xpr" : xpr})
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    print "[DEBUG]: " + str(j)
     print "[CI]> Connecting to " + str(server) + ":" + str(port) + "..."
     s.connect((server, int(port)))
     print "[CI]-> Connected"
