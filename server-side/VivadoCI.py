@@ -78,7 +78,7 @@ def execute(args_list, stdout_queue):
     thread.start()
     prog.wait()
     thread.stop()
-    thread.wait()
+    thread.join()
     return prog.returncode
 
 ###############
