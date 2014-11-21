@@ -1,0 +1,18 @@
+language: python
+python:
+  - "2.7"
+before_install:
+  # First let's set the variables
+  - REPOSITORY=$(git config --get remote.origin.url)
+  # You can change the CI Server here (see https://github.com/Viq111/Vivado-CI/tree/master/server-side if you want to implement your own)
+  - VIVADO_CI_SERVER=vivado-ci.viq.ovh
+  - VIVADO_CI_PORT=4545
+  # You can change the following variable if your project file (xpr) is not at the root of your repository
+  - XPR_PATH=*.xpr
+  # Download the script
+  - wget https://github.com/Viq111/Vivado-CI/raw/master/client-side/client.py
+  - python client.py --before_install $VIVADO_CI_SERVER $VIVADO_CI_PORT $REPOSITORY $TRAVIS_COMMIT $XPR_PATH
+install:
+  - python client.py --install $VIVADO_CI_SERVER $VIVADO_CI_PORT $REPOSITORY $TRAVIS_COMMIT $XPR_PATH
+script: 
+  - python client.py $VIVADO_CI_SERVER $VIVADO_CI_PORT $REPOSITORY $TRAVIS_COMMIT $XPR_PATH
