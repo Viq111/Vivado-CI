@@ -248,7 +248,7 @@ class Worker(threading.Thread):
         print "[WORKER]-> Building..."
         vivado = glob.glob("/opt/Xilinx/Vivado/*/bin/vivado")[0]
         r_code = execute([vivado, "-mode" ,"batch" ,"-source" , script_name], build.messages)
-        if r_code = 0: # Vivado don't tell us if the generate bitstream fails
+        if r_code == 0: # Vivado don't tell us if the generate bitstream fails
             if len(glob.glob("*.runs/impl_1/*.bit")) <= 0: # We did not generate any bitstream file
                 return 4
         return r_code
