@@ -211,6 +211,11 @@ class Worker(threading.Thread):
         r_code = execute(['git', 'clone', build.git_repo, '.'], build.messages)
         if r_code != 0: # There was an error
             return r_code
+        # Let's add the pull request branches
+        r_code = execute(["git", "config", "remote.origin.fetch", "+refs/pull/*/merge:refs/remotes/origin/pr/*", "--add"], build.messages)
+        r_code += execute(["git", "fetch"], build.messages)
+        if r_code != 0:
+            return r_code
         # Checkout
         r_code = execute(['git', 'checkout','-qf', str(build.git_commit)], build.messages)
         if r_code != 0: # There was an error
