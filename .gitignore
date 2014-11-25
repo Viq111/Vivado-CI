@@ -1,0 +1,9 @@
+*.cache
+*.sim
+*.runs
+vivado.jou
+vivado.log
+vivado_pid*.str
+hs_err_pid*
+*.hw
+*.backup.*
