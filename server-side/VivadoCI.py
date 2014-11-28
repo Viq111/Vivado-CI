@@ -11,7 +11,7 @@ version = 1
 ### IMPORT ###
 ##############
 import os, time, glob, threading, json, SocketServer, socket, Queue, re, tempfile, subprocess, shutil
-import random, string
+import random, string, signal, sys
 
 if os.name == "posix":
     import fcntl # This is for non-block stdout check on linux
@@ -258,6 +258,10 @@ class Worker(threading.Thread):
 ##################
 
 if __name__ == "__main__":
+    def sigterm(_signo = 0, _stack_frame = 0):
+        "Catch a signal and exit normally"
+        sys.exit(0)
+    signal.signal(signal.SIGTERM, sigterm)
     print "> Welcome to " + str(prog_name) + " (r" + str(version) + ")"
     print "> By Viq (under CC BY-SA 3.0 license)"
     print "> Loading program ..."
@@ -268,7 +272,7 @@ if __name__ == "__main__":
     print "-> Serving on " + str(DEFAULT_PORT) + "...\n"
     try:
         server.serve_forever()
-    except KeyboardInterrupt:
+    except KeyboardInterrupt, SystemExit:
         server.shutdown()
     build_server.stop()
     
