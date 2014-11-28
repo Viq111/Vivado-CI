@@ -7,3 +7,4 @@ vivado_pid*.str
 hs_err_pid*
 *.hw
 *.backup.*
+*.debug
