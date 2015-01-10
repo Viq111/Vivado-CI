@@ -1,4 +1,8 @@
 # Vivado-CI
+
+**NOTICE: The server has been brought down, please create your own server (see README in server-side folder), then just change the address in the `.travis.yml`**
+
+
 **Vivado-CI** is a continous integration system for Vivado-based projects (VHDL & Verilog). It integrates fully with Travis-Ci and GitHub with minimal configuration
 
 ## How to use for your project
